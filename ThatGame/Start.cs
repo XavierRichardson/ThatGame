@@ -23,6 +23,7 @@ namespace ThatGame
             listen();
         }
 
+        //Listens for the user to enter a key command. 
         private static void listen() {
             bool exit = false;
             while (exit == false) {
@@ -43,6 +44,7 @@ namespace ThatGame
             }
         }
 
+        //Only exectues after pressing enter. Executes a command based on commandId
         private static void runCommand(int commandId) {
             switch (commandId) {
                 case 0:
