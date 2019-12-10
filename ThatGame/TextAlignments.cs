@@ -57,5 +57,9 @@ namespace ThatGame
             Console.ResetColor();
             newLine();
         }
+
+        public void boxContent_SM(int margin = 0, int padding = 0) {
+
+        }
     }
 }
