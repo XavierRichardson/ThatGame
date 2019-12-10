@@ -11,14 +11,13 @@ namespace ThatGame
         private static TextAlignments _align = new TextAlignments();
         private static int currCommand = 0;
         public static void BeginGame(bool firstStart = true) {
-            
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
             _align.centerText("Welcome to This Game known as \"ThatGame\"", firstStart);
-            _align.newLine();
             _align.centerText(" Use the arrowkeys or WS to scroll up/down the list. Press Enter to select", firstStart);
 
           
-                currCommand = commands.printCommands(_commands, currCommand, firstStart);
+            currCommand = commands.printCommands(_commands, currCommand, firstStart);
             
             listen();
         }
@@ -65,7 +64,8 @@ namespace ThatGame
 
         private static void createNewCharacter() {
             Console.Clear();
-
+            _align.centerText("Welcome to the character creation. Here you will pick whatever traits your character will have for the start of the game.");
+            _align.centerText("These all can be changed later in the game.");
         }
 
 

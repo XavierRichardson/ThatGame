@@ -29,7 +29,7 @@ namespace ThatGame
             else {
                 Console.WriteLine(input);
             }
-            
+            newLine();
         }
 
         //Overload for adding color to the text
@@ -55,6 +55,7 @@ namespace ThatGame
             }
 
             Console.ResetColor();
+            newLine();
         }
     }
 }

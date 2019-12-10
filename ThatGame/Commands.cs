@@ -18,7 +18,6 @@ namespace ThatGame
             }
 
             for (int i = 0; i < commands.Count; i++) {
-                _align.newLine();
                 if (i == position)
                 {
                     _align.centerText(commands[i], ConsoleColor.Green, slowType);
