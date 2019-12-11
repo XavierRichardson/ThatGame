@@ -8,17 +8,27 @@ namespace ThatGame
     {
         TextAlignments _align = new TextAlignments();
 
-        public int printCommands(List<string> commands, int currCommand = 0, bool slowType = true) {
+        public int printCommands(ContentBox commands, bool slowType = true) {
             Console.WriteLine("\n");
 
-            if (currCommand < 0) {
-                currCommand = 0;
-            } else if (currCommand >= commands.Count) {
-                currCommand = (commands.Count - 1);
+            if (commands.currentChoice < 0) {
+                commands.currentChoice = 0;
+            } else if (commands.currentChoice >= commands.content.Count) {
+                commands.currentChoice = (commands.content.Count - 1);
             }
-            _align.boxContent(commands,80, 10,false,currCommand);
+            _align.boxContent(commands,80, 10);
 
-            return currCommand;
+            return commands.currentChoice;
+        }
+
+        public ContentBox SetCommandBox(List<string> commands, string title = null, int currentCmd = 0) {
+            ContentBox box = new ContentBox();
+
+            box.title = title;
+            box.content = commands;
+            box.currentChoice = currentCmd;
+
+            return box;
         }
 
         public List<string> returnCommandList(string[] commands) {

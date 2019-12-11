@@ -59,57 +59,48 @@ namespace ThatGame
         }
 
         //Used to make content boxes on the screen
-        public void boxContent(List<string>content, int posX, int posY, bool hasTitle = true, int selection = 0)
+        public void boxContent(ContentBox content, int posX, int posY)
         {
             Console.SetCursorPosition(posX, posY);
-            int lineWidth = (getLargestItem(content) + 4);
+            int lineWidth = (getLargestItem(content.content) + 4);
 
-            for (int i = 0; i < 5; i++) {
-                if (i == 0 || i == 4) {
-                    Console.SetCursorPosition(posX, Console.CursorTop);
+            for (int i = 0; i < 3; i++) {
+                if (i == 0)
+                {
                     Console.WriteLine(borderLine(lineWidth));
-                } else if (i == 1 || i == 3) {
-                    Console.SetCursorPosition(posX, (Console.CursorTop));
-                    Console.WriteLine(paddingLine(lineWidth));
-                }
-                else {
-                    foreach (string temp in content) {
-                        Console.SetCursorPosition(posX, (Console.CursorTop));
-                        if (content[0] == temp && hasTitle == true)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.WriteLine(conentLine(lineWidth, temp));
-                            Console.ResetColor();
-                            Console.SetCursorPosition(posX, Console.CursorTop);
-                            Console.WriteLine(divider(lineWidth));
-                            
-                        }
-                        else {
-                            if (hasTitle == false && content.IndexOf(temp) == selection)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine(conentLine(lineWidth, temp));
-                                Console.ResetColor();
-                            }
-                            else if (hasTitle == true && (content.IndexOf(temp) + 1) == (selection + 1))
-                            {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine(conentLine(lineWidth, temp));
-                                Console.ResetColor();
-                            }
-                            else {
-                                Console.WriteLine(conentLine(lineWidth, temp));
-                            }
-                            
-                        }
-                        
+                    Console.SetCursorPosition(posX, Console.CursorTop);
+                    
+                    if (content.title != null)
+                    {
+                        Console.WriteLine(contentLine(lineWidth, content.title));
+                        Console.SetCursorPosition(posX, Console.CursorTop);
+                        Console.WriteLine(divider(lineWidth));
+                        Console.SetCursorPosition(posX, Console.CursorTop);
+                    }
+                    else {
+                        Console.WriteLine(paddingLine(lineWidth));
+                        Console.SetCursorPosition(posX, Console.CursorTop);
                     }
                 }
-                
+                else if (i == 2)
+                {
+                    Console.WriteLine(paddingLine(lineWidth));
+                    Console.SetCursorPosition(posX, Console.CursorTop);
+                    Console.WriteLine(borderLine(lineWidth));
+                }
+                else {
+                    foreach (string item in content.content) {
+                        if (content.currentChoice == content.content.IndexOf(item)) {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        Console.WriteLine(contentLine(lineWidth, item));                        
+                        Console.SetCursorPosition(posX, Console.CursorTop);
+                    }
+                }
             }
         }
 
-        private string conentLine(int width, string input) {
+        private string contentLine(int width, string input) {
             string result = "";
             string padding = "";
             int paddingWidth = ((width - input.Length) - 2)/2;

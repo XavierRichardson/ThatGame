@@ -8,19 +8,23 @@ namespace ThatGame
     {
         private static Commands commands = new Commands();
         private static List<string> _commands = commands.returnCommandList(new string[] { "Start", "Load Save", "Options", "Exit" });
+        private static ContentBox StartCommands = new ContentBox();
         private static TextAlignments _align = new TextAlignments();
-        private static int currCommand = 0;
         public static void BeginGame(bool firstStart = true) {
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
             _align.centerText("Welcome to This Game known as \"ThatGame\"", firstStart);
             _align.centerText(" Use the arrowkeys or WS to scroll up/down the list. Press Enter to select", firstStart);
 
+            if (firstStart == true) {
+                StartCommands = commands.SetCommandBox(_commands);
+            }
           
-            currCommand = commands.printCommands(_commands, currCommand, firstStart);
+            StartCommands.currentChoice = commands.printCommands(_commands, StartCommands.currentChoice, firstStart);
             
             listen();
         }
+
 
         //Listens for the user to enter a key command. 
         private static void listen() {
@@ -29,15 +33,15 @@ namespace ThatGame
                 ConsoleKey key = Console.ReadKey().Key;
 
                 if (key == ConsoleKey.W || key == ConsoleKey.UpArrow) {
-                    currCommand = (currCommand - 1);
+                    StartCommands.currentChoice = (StartCommands.currentChoice - 1);
                     Console.Clear();
                     BeginGame(false);
                 } else if (key == ConsoleKey.S || key == ConsoleKey.DownArrow) {
-                    currCommand = (currCommand + 1);
+                    StartCommands.currentChoice = (StartCommands.currentChoice + 1);
                     Console.Clear();
                     BeginGame(false);
                 } else if (key == ConsoleKey.Enter) {
-                    runCommand(currCommand);
+                    runCommand(StartCommands.currentChoice);
                 }
 
             }
@@ -47,7 +51,7 @@ namespace ThatGame
         private static void runCommand(int commandId) {
             switch (commandId) {
                 case 0:
-                    createNewCharacter();
+                    CharacterPage.createNewCharacter();
                     break;
                 case 1:
                     Console.WriteLine(_commands[commandId]);
@@ -62,12 +66,7 @@ namespace ThatGame
             }
         }
 
-        private static void createNewCharacter() {
-            Console.Clear();
-            _align.centerText("Welcome to the character creation. Here you will pick whatever traits your character will have for the start of the game.");
-            _align.centerText("These all can be changed later in the game.");
-            _align.boxContent(_commands, 100, 8);
-        }
+        
 
 
     }                
