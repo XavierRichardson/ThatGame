@@ -17,10 +17,10 @@ namespace ThatGame
             _align.centerText(" Use the arrowkeys or WS to scroll up/down the list. Press Enter to select", firstStart);
 
             if (firstStart == true) {
-                StartCommands = commands.SetCommandBox(_commands);
+                StartCommands = commands.SetCommandBox(_commands,"Commands");
             }
           
-            StartCommands.currentChoice = commands.printCommands(_commands, StartCommands.currentChoice, firstStart);
+            StartCommands.currentChoice = commands.printCommands(StartCommands, firstStart);
             
             listen();
         }

@@ -8,6 +8,7 @@ namespace ThatGame
     {
         TextAlignments _align = new TextAlignments();
 
+        //For printing out any pages specific command list
         public int printCommands(ContentBox commands, bool slowType = true) {
             Console.WriteLine("\n");
 
@@ -21,6 +22,7 @@ namespace ThatGame
             return commands.currentChoice;
         }
 
+        //Used to make the content box object for the page commands subject to future removal
         public ContentBox SetCommandBox(List<string> commands, string title = null, int currentCmd = 0) {
             ContentBox box = new ContentBox();
 
@@ -31,6 +33,7 @@ namespace ThatGame
             return box;
         }
 
+        //Used for automatically setting a list object. Similar to setting an array list 
         public List<string> returnCommandList(string[] commands) {
             List<string> returnValue = new List<string>();
 

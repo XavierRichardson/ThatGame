@@ -62,7 +62,16 @@ namespace ThatGame
         public void boxContent(ContentBox content, int posX, int posY)
         {
             Console.SetCursorPosition(posX, posY);
-            int lineWidth = (getLargestItem(content.content) + 4);
+            int largestItem = getLargestItem(content.content);
+            int lineWidth = 0;
+            if (content.title.Length > largestItem)
+            {
+                lineWidth = (content.title.Length + 4);
+            }
+            else {
+                lineWidth = (largestItem + 4);
+            }
+            //int lineWidth = ( + 4);
 
             for (int i = 0; i < 3; i++) {
                 if (i == 0)
@@ -72,8 +81,10 @@ namespace ThatGame
                     
                     if (content.title != null)
                     {
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine(contentLine(lineWidth, content.title));
                         Console.SetCursorPosition(posX, Console.CursorTop);
+                        Console.ResetColor();
                         Console.WriteLine(divider(lineWidth));
                         Console.SetCursorPosition(posX, Console.CursorTop);
                     }
@@ -90,11 +101,19 @@ namespace ThatGame
                 }
                 else {
                     foreach (string item in content.content) {
-                        if (content.currentChoice == content.content.IndexOf(item)) {
+                        if (content.currentChoice == content.content.IndexOf(item))
+                        {
                             Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine(contentLine(lineWidth, item));
+                            Console.ResetColor();
+                            Console.SetCursorPosition(posX, Console.CursorTop);
+                            ;
                         }
-                        Console.WriteLine(contentLine(lineWidth, item));                        
-                        Console.SetCursorPosition(posX, Console.CursorTop);
+                        else {
+                            Console.WriteLine(contentLine(lineWidth, item));
+                            Console.SetCursorPosition(posX, Console.CursorTop);
+                        }
+                        
                     }
                 }
             }
