@@ -47,7 +47,7 @@ namespace ThatGame
                 foreach (char c in line)
                 {
                     Console.Write(c);
-                    Thread.Sleep(50);
+                    Thread.Sleep(25);
                 }
             }
             else {
@@ -66,6 +66,7 @@ namespace ThatGame
 
             for (int i = 0; i < 5; i++) {
                 if (i == 0 || i == 4) {
+                    Console.SetCursorPosition(posX, Console.CursorTop);
                     Console.WriteLine(borderLine(lineWidth));
                 } else if (i == 1 || i == 3) {
                     Console.SetCursorPosition(posX, (Console.CursorTop));
@@ -79,6 +80,7 @@ namespace ThatGame
                             Console.ForegroundColor = ConsoleColor.Blue;
                             Console.WriteLine(conentLine(lineWidth, temp));
                             Console.ResetColor();
+                            Console.SetCursorPosition(posX, Console.CursorTop);
                             Console.WriteLine(paddingLine(lineWidth));
                             
                             
