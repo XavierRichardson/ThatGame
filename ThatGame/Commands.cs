@@ -8,27 +8,17 @@ namespace ThatGame
     {
         TextAlignments _align = new TextAlignments();
 
-        public int printCommands(List<string> commands, int position = 0, bool slowType = true) {
+        public int printCommands(List<string> commands, int currCommand = 0, bool slowType = true) {
             Console.WriteLine("\n");
 
-            if (position < 0) {
-                position = 0;
-            } else if (position >= commands.Count) {
-                position = (commands.Count - 1);
+            if (currCommand < 0) {
+                currCommand = 0;
+            } else if (currCommand >= commands.Count) {
+                currCommand = (commands.Count - 1);
             }
+            _align.boxContent(commands,80, 10,false,currCommand);
 
-            for (int i = 0; i < commands.Count; i++) {
-                if (i == position)
-                {
-                    _align.centerText(commands[i], ConsoleColor.Green, slowType);
-                }
-                else {
-                    _align.centerText(commands[i], slowType);
-                }
-                
-            }
-
-            return position;
+            return currCommand;
         }
 
         public List<string> returnCommandList(string[] commands) {

@@ -59,7 +59,7 @@ namespace ThatGame
         }
 
         //Used to make content boxes on the screen
-        public void boxContent(List<string>content, int posX, int posY)
+        public void boxContent(List<string>content, int posX, int posY, bool hasTitle = true, int selection = 0)
         {
             Console.SetCursorPosition(posX, posY);
             int lineWidth = (getLargestItem(content) + 4);
@@ -75,18 +75,32 @@ namespace ThatGame
                 else {
                     foreach (string temp in content) {
                         Console.SetCursorPosition(posX, (Console.CursorTop));
-                        if (content[0] == temp)
+                        if (content[0] == temp && hasTitle == true)
                         {
                             Console.ForegroundColor = ConsoleColor.Blue;
                             Console.WriteLine(conentLine(lineWidth, temp));
                             Console.ResetColor();
                             Console.SetCursorPosition(posX, Console.CursorTop);
-                            Console.WriteLine(paddingLine(lineWidth));
-                            
+                            Console.WriteLine(divider(lineWidth));
                             
                         }
                         else {
-                            Console.WriteLine(conentLine(lineWidth, temp));
+                            if (hasTitle == false && content.IndexOf(temp) == selection)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(conentLine(lineWidth, temp));
+                                Console.ResetColor();
+                            }
+                            else if (hasTitle == true && (content.IndexOf(temp) + 1) == (selection + 1))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(conentLine(lineWidth, temp));
+                                Console.ResetColor();
+                            }
+                            else {
+                                Console.WriteLine(conentLine(lineWidth, temp));
+                            }
+                            
                         }
                         
                     }
@@ -106,10 +120,22 @@ namespace ThatGame
 
             result = "*" + padding + input + padding + "*";
 
-            if (result.Length > width) {
-                result = "*" + padding.Substring(0) + input + padding + "*";
-            } else if (result.Length < width) {
-                result = "* " + padding + input + padding + "*";
+            while (result.Length != width) {
+                if (result.Length > width)
+                {
+                    
+                    result = "*" + padding.Substring(0) + input + padding + "*";
+                    if (result.Length > width) {
+                        result = "*" + padding.Substring(0) + input + padding.Substring(0) + "*";
+                    }
+                }
+                else if (result.Length < width)
+                {
+                    result = "* " + padding + input + padding + "*";
+                    if (result.Length < width) {
+                        result = "* " + padding + input + padding + " *";
+                    }
+                }
             }
 
             return result;
@@ -125,6 +151,22 @@ namespace ThatGame
                 }
                 else {
                     result = result + " ";
+                }
+            }
+
+            return result;
+        }
+
+        private string divider(int lineWidth) {
+            string result = "";
+
+            for (int i = 0; i < lineWidth; i++) {
+                if (i == 0 || i == (lineWidth - 1))
+                {
+                    result = result + "*";
+                }
+                else {
+                    result = result + "-";
                 }
             }
 
