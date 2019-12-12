@@ -11,8 +11,6 @@ namespace ThatGame
         private static Commands commands = new Commands();
         private static GridSystem grid = new GridSystem();
         private static int activeBox = 0;
-        private static ContentBox box = null;
-
         private static List<ContentBox> Options = getOptions();
 
         public static void createNewCharacter(bool firstRun = true)
@@ -21,17 +19,55 @@ namespace ThatGame
 
             _align.centerText("Welcome to the character creation. Here you will pick whatever traits your character will have for the start of the game.", firstRun);
             _align.centerText("These all can be changed later in the game.", firstRun);
+            _align.centerText("Use WASD or the arrow keys to select the character trait/trait box press enter when finished with your choices", firstRun);
             //Start the grid system for character creation
             grid.buildBoxList(Options, activeBox);
+            listen();
         }
 
         private static void listen() {
             bool exit = false;
+            int count = Options[activeBox].content.Count;
             while (exit == false) {
                 ConsoleKey key = Console.ReadKey().Key;
 
-                if (key == ConsoleKey.W) {
-
+                if (key == ConsoleKey.W || key == ConsoleKey.UpArrow) {
+                    if ((Options[activeBox].currentChoice - 1) < 0)
+                    {
+                        Options[activeBox].currentChoice = 0;
+                        activeBox = 0;
+                    }
+                    else
+                    {
+                        Options[activeBox].currentChoice = (Options[activeBox].currentChoice - 1);
+                    }
+                    createNewCharacter(false);
+                } else if (key == ConsoleKey.S || key == ConsoleKey.DownArrow) {
+                    if ((Options[activeBox].currentChoice + 1) > count)
+                    {
+                        Options[activeBox].currentChoice = count;
+                    }
+                    else {
+                        Options[activeBox].currentChoice = (Options[activeBox].currentChoice + 1);
+                    }
+                    createNewCharacter(false);
+                } else if (key == ConsoleKey.A || key == ConsoleKey.LeftArrow) {
+                    if ((activeBox - 1) < 0)
+                    {
+                        activeBox = 0;
+                    }
+                    else {
+                        activeBox = (activeBox - 1);
+                    }
+                    createNewCharacter(false);
+                } else if (key == ConsoleKey.D || key == ConsoleKey.RightArrow) {
+                    if ((activeBox + 1) > (Options.Count - 1)) {
+                        activeBox = Options.Count -1;
+                    }
+                    else {
+                        activeBox = (activeBox + 1);
+                    }
+                    createNewCharacter(false);
                 }
             }
 

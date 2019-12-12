@@ -42,6 +42,7 @@ namespace ThatGame
                     BeginGame(false);
                 } else if (key == ConsoleKey.Enter) {
                     runCommand(StartCommands.currentChoice);
+                    exit = true;
                 }
 
             }
