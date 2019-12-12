@@ -59,9 +59,10 @@ namespace ThatGame
         }
 
         //Used to make content boxes on the screen
-        public void boxContent(ContentBox content, int posX, int posY)
+        public void boxContent(ContentBox content, int posX, int posY, ConsoleColor color = ConsoleColor.White)
         {
             Console.SetCursorPosition(posX, posY);
+            Console.ForegroundColor = color;
             int largestItem = getLargestItem(content.content);
             int lineWidth = 0;
             if (content.title.Length > largestItem)
@@ -84,7 +85,7 @@ namespace ThatGame
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine(contentLine(lineWidth, content.title));
                         Console.SetCursorPosition(posX, Console.CursorTop);
-                        Console.ResetColor();
+                        Console.ForegroundColor = color;
                         Console.WriteLine(divider(lineWidth));
                         Console.SetCursorPosition(posX, Console.CursorTop);
                     }
@@ -105,7 +106,7 @@ namespace ThatGame
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine(contentLine(lineWidth, item));
-                            Console.ResetColor();
+                            Console.ForegroundColor = color;
                             Console.SetCursorPosition(posX, Console.CursorTop);
                             ;
                         }
@@ -117,6 +118,7 @@ namespace ThatGame
                     }
                 }
             }
+            Console.ResetColor();
         }
 
         private string contentLine(int width, string input) {

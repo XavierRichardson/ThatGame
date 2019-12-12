@@ -9,7 +9,7 @@ namespace ThatGame
         TextAlignments _align = new TextAlignments();
 
         //For printing out any pages specific command list
-        public int printCommands(ContentBox commands, bool slowType = true) {
+        public int printCommands(ContentBox commands, bool slowType = true, int posX = 80, int posY = 10, ConsoleColor color = ConsoleColor.White) {
             Console.WriteLine("\n");
 
             if (commands.currentChoice < 0) {
@@ -17,7 +17,7 @@ namespace ThatGame
             } else if (commands.currentChoice >= commands.content.Count) {
                 commands.currentChoice = (commands.content.Count - 1);
             }
-            _align.boxContent(commands,80, 10);
+            _align.boxContent(commands,posX, posY, color);
 
             return commands.currentChoice;
         }
