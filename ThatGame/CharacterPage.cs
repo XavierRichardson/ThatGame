@@ -19,7 +19,7 @@ namespace ThatGame
 
             _align.centerText("Welcome to the character creation. Here you will pick whatever traits your character will have for the start of the game.", firstRun);
             _align.centerText("These all can be changed later in the game.", firstRun);
-            _align.centerText("Use WASD or the arrow keys to select the character trait/trait box press enter when finished with your choices. Press ESC to return to the title page", firstRun);
+            _align.centerText("Press the H key for help or info about this page and I for possible information on the chosen option", firstRun);
             //Start the grid system for character creation
             grid.buildBoxList(Options, activeBox);
             listen();
@@ -72,6 +72,8 @@ namespace ThatGame
                     Console.Clear();
                     Start.BeginGame(false);
                     exit = true;
+                } else if (key == ConsoleKey.H) {
+                    //Show the help page
                 }
             }
 
@@ -105,6 +107,14 @@ namespace ThatGame
             Mentality.content = commands.returnCommandList(new string[] { "Social", "Antisocial", "Leader", "Follower", "Learning","Agressive","Passive"});
             Vice.content = commands.returnCommandList(new string[] { "Liar", "Greedy", "Angry", "Narcisstic", "Weak Minded"});
             Virtue.content = commands.returnCommandList(new string[] {"Honorable", "Loving", "Childish", "Strong Minded", "Virtuous" });
+
+            Sex.desc = "This is what your character was born as when it comees to biological sex. This can change what items will work for you. ie) Armors";
+            Gender.desc = "This dictates what pronoun is used in the game and what gender you identify as.";
+            Race.desc = "This is what race you were born as. Each race has some natural additaves.";
+            Past.desc = "This is how you grew up and what you went through as a child and teen. This effects some of your skills and even your mentality.";
+            Mentality.desc = "How you see others and the world around you. Different mentalities will effect the options available to you.";
+            Vice.desc = "This is a singular problem or trouble you may have that holds you back. Mostly provided for interesting play";
+            Virtue.desc = "This is a singular good thing about you that helps you only slighly in a few ways. Mostly provided for interesting play";
 
 
             result.Add(Sex);

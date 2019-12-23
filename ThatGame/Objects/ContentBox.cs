@@ -9,5 +9,6 @@ namespace ThatGame
         public string title = null;
         public List<string> content = new List<string>();
         public int currentChoice = 0;
+        public string desc = "";
     }
 }

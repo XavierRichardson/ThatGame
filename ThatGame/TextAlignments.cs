@@ -11,7 +11,7 @@ namespace ThatGame
             Console.WriteLine("\n");
         }
 
-        //prints and centers whatever you pass in
+        //prints and centers whatever you pass in. Only for line by line. Does not take x/y 
         public void centerText(string input, bool slowType = true) {
             int stringLength = (int)Math.Floor((double)(input.Length/2));
             int windowLength = (int)Math.Floor((double)(Console.WindowWidth/2));
@@ -23,7 +23,7 @@ namespace ThatGame
                 foreach (char c in line)
                 {
                     Console.Write(c);
-                    Thread.Sleep(50);
+                    Thread.Sleep(25);
                 }
             }
             else {
@@ -58,6 +58,24 @@ namespace ThatGame
             newLine();
         }
 
+        //For creating standard text boxes. The x/y is for the uppper left corner of the total box. Will always go from max window
+        public void textBox(string message, int posX, int posY,int width = 0, int height = 0, ConsoleColor color = ConsoleColor.White) {
+            Console.SetCursorPosition(posX, posY);
+            int boxWidth = 0;
+            if (width > 0)
+            {
+                boxWidth = width;
+            }
+            else {
+                boxWidth = (Console.WindowWidth - 10);
+            }
+            Console.WriteLine(borderLine(boxWidth));
+
+            
+            
+
+        }
+
         //Used to make content boxes on the screen
         public void boxContent(ContentBox content, int posX, int posY, ConsoleColor color = ConsoleColor.White)
         {
@@ -65,7 +83,7 @@ namespace ThatGame
             Console.ForegroundColor = color;
             int largestItem = getLargestItem(content.content);
             int lineWidth = 0;
-            if (content.title.Length > largestItem)
+            if ( content.title != null && content.title.Length > largestItem)
             {
                 lineWidth = (content.title.Length + 4);
             }
