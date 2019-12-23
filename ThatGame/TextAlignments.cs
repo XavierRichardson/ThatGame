@@ -61,7 +61,10 @@ namespace ThatGame
         //For creating standard text boxes. The x/y is for the uppper left corner of the total box. Will always go from max window
         public void textBox(string message, int posX, int posY,int width = 0, int height = 0, ConsoleColor color = ConsoleColor.White) {
             Console.SetCursorPosition(posX, posY);
+            Console.ForegroundColor = color;
             int boxWidth = 0;
+            string[] wordCount = message.Split(" ");
+            List<string> lineCount = new List<string>();
             if (width > 0)
             {
                 boxWidth = width;
@@ -69,10 +72,47 @@ namespace ThatGame
             else {
                 boxWidth = (Console.WindowWidth - 10);
             }
-            Console.WriteLine(borderLine(boxWidth));
 
-            
-            
+            string tempString = "";
+            foreach (string word in wordCount) {
+                if (((tempString.Length + word.Length) + 1) < (width - 4))
+                {
+                    tempString = tempString + " " + word;
+                }
+                else {
+                    lineCount.Add(tempString);
+                    tempString = "" + word;
+                }
+
+                
+            }
+
+            if (tempString != "") {
+                lineCount.Add(tempString);
+                tempString = "";
+            }
+
+            for (int i = 0; i < 3; i++) {
+                if (i == 0)
+                {
+                    Console.WriteLine(borderLine(width));
+                    Console.SetCursorPosition(posX, Console.CursorTop);
+                    Console.WriteLine(paddingLine(width));
+                    Console.SetCursorPosition(posX, Console.CursorTop);
+                }
+                else if (i == 2)
+                {
+                    Console.WriteLine(paddingLine(width));
+                    Console.SetCursorPosition(posX, Console.CursorTop);
+                    Console.WriteLine(borderLine(width));
+                }
+                else {
+                    foreach (string line in lineCount) {
+                        Console.WriteLine(contentLine(width,line));
+                        Console.SetCursorPosition(posX, Console.CursorTop);
+                    }
+                }
+            }
 
         }
 

@@ -19,7 +19,7 @@ namespace ThatGame
 
             _align.centerText("Welcome to the character creation. Here you will pick whatever traits your character will have for the start of the game.", firstRun);
             _align.centerText("These all can be changed later in the game.", firstRun);
-            _align.centerText("Press the H key for help or info about this page and I for possible information on the chosen option", firstRun);
+            _align.centerText("Press the H key for help or info about this page and I for possible information on the specific trait list", firstRun);
             //Start the grid system for character creation
             grid.buildBoxList(Options, activeBox);
             listen();
@@ -74,6 +74,7 @@ namespace ThatGame
                     exit = true;
                 } else if (key == ConsoleKey.H) {
                     //Show the help page
+                    _align.textBox(Options[activeBox].desc, 35,35, 80);
                 }
             }
 
@@ -111,6 +112,7 @@ namespace ThatGame
             Sex.desc = "This is what your character was born as when it comees to biological sex. This can change what items will work for you. ie) Armors";
             Gender.desc = "This dictates what pronoun is used in the game and what gender you identify as.";
             Race.desc = "This is what race you were born as. Each race has some natural additaves.";
+            Skills.desc = "This is what your good at and what your able to do. Higher skill levels means its easier to do specific actions.";
             Past.desc = "This is how you grew up and what you went through as a child and teen. This effects some of your skills and even your mentality.";
             Mentality.desc = "How you see others and the world around you. Different mentalities will effect the options available to you.";
             Vice.desc = "This is a singular problem or trouble you may have that holds you back. Mostly provided for interesting play";
