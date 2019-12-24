@@ -28,6 +28,9 @@ namespace ThatGame.Pages.Partials.CharacterTraits
                 case "ALDERAN":
                     race = new Alderan();
                     break;
+                case "BRUTARIS":
+                    race = new Brutaris();
+                    break;
             }
             if (race != null) {
                 _align.textBox(race.desc, 25, 10, 40);
