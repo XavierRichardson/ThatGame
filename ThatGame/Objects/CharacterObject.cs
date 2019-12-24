@@ -9,9 +9,19 @@ namespace ThatGame
         public string name;
         public int health;
         public int level;
-        //add list of items
 
-        //Stats
+        //Inventory of items
+
+        string gender = "";
+        int sex = 0;
+        int race = 0;
+        int vice = 0;
+        int virtue = 0;
+        int mentality = 0;
+        int past = 0;
+        
+
+        //Character Stats
 
         //{ "Mechanical", "Magic", "Science", "Arcanology", "Combat", "Speech", "Chemistry", "Blacksmithing", "Engineering", "None"});
         public int Mechanical = 10;
@@ -23,6 +33,14 @@ namespace ThatGame
         public int Chemisty = 10;
         public int Blacksmithing = 10;
         public int Engineering = 10;
+
+        //Character traits
+        public int Strengh = 5;
+        public int Intelligence = 5;
+        public int Charisma = 5;
+        public int Initiative = 5;
+        public int Agility = 5;
+        public int Consititution = 5;
         
     }
 }

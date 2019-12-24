@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ThatGame.Objects.Races;
+using ThatGame.Pages.Partials.CharacterTraits;
 
 namespace ThatGame
 {
@@ -20,7 +22,6 @@ namespace ThatGame
             _align.centerText("Welcome to the character creation. Here you will pick whatever traits your character will have for the start of the game.", firstRun);
             _align.centerText("These all can be changed later in the game.", firstRun);
             _align.centerText("Press the H key for help or info about this page and I for possible information on the specific trait list", firstRun);
-            //Start the grid system for character creation
             grid.buildBoxList(Options, activeBox);
             listen();
         }
@@ -43,9 +44,9 @@ namespace ThatGame
                     }
                     createNewCharacter(false);
                 } else if (key == ConsoleKey.S || key == ConsoleKey.DownArrow) {
-                    if ((Options[activeBox].currentChoice + 1) > count)
+                    if ((Options[activeBox].currentChoice + 1) >= count)
                     {
-                        Options[activeBox].currentChoice = count;
+                        Options[activeBox].currentChoice = (count - 1);
                     }
                     else {
                         Options[activeBox].currentChoice = (Options[activeBox].currentChoice + 1);
@@ -73,13 +74,31 @@ namespace ThatGame
                     Start.BeginGame(false);
                     exit = true;
                 } else if (key == ConsoleKey.H) {
-                    //Show the help page
-                    _align.textBox(Options[activeBox].desc, 35,35, 80);
+                    _align.textBox(Options[activeBox].desc, 35, 35, 80);
+                } else if (key == ConsoleKey.I) {
+                    string message = "";
+                    //Start the possible stats screen if exist otherwise text box to say.
+                    switch (Options[activeBox].title.ToUpper()) {
+                        case "SEX":
+                            message = "Sex has no stat alignment. Only changes what items are avalable for use id)armors";
+                            _align.textBox(message, 35,35,80);
+                            break;
+                        case "GENDER":
+                            message = "Gender has no stat alignment. Only for pronoun used and how you present yourself to the world";
+                            _align.textBox(message, 35,35,80);
+                            break;
+                        case "RACE":
+                            //Go to the race subpage
+                            Console.Clear();
+                            Race.loadPage();
+                            exit = true;
+                            break;
+                    }
                 }
             }
 
         }
-
+        //Sets up the possible boxes the this specific page.
         private static List<ContentBox> getOptions() {
             List<ContentBox> result = new List<ContentBox>();
             ContentBox Sex = new ContentBox();
@@ -100,14 +119,14 @@ namespace ThatGame
             Vice.title = "Vice";
             Virtue.title = "Virtue";
 
-            Sex.content = commands.returnCommandList(new string[] { "Male", "Female", "Other" });
+            Sex.content = commands.returnCommandList(new string[] { "Male", "Female"});
             Gender.content = commands.returnCommandList(new string[] { "Male", "Female", "Other" });
             Race.content = commands.returnCommandList(new string[] {"Alderan", "Brutaris","Levenite","Beholden" });
             Skills.content = commands.returnCommandList(new string[] { "Mechanical", "Magic", "Science", "Arcanology", "Combat", "Speech", "Chemistry", "Blacksmithing", "Engineering", "None"});
-            Past.content = commands.returnCommandList(new string[] { "Trooper", "Engineer", "Wizard", "Scientist", "Arcanologist", "Politician", "Weapons Builder", "Farmhand", "Citizen"});
+            Past.content = commands.returnCommandList(new string[] { "Trooper", "Engineer", "Wizard", "Scientist", "Arcanologist", "Politician", "Weaponsmith", "Farmhand", "Citizen"});
             Mentality.content = commands.returnCommandList(new string[] { "Social", "Antisocial", "Leader", "Follower", "Learning","Agressive","Passive"});
-            Vice.content = commands.returnCommandList(new string[] { "Liar", "Greedy", "Angry", "Narcisstic", "Weak Minded"});
-            Virtue.content = commands.returnCommandList(new string[] {"Honorable", "Loving", "Childish", "Strong Minded", "Virtuous" });
+            Vice.content = commands.returnCommandList(new string[] { "Liar", "Greedy", "Angry", "Narcisstic", "Malevolent"});
+            Virtue.content = commands.returnCommandList(new string[] {"Honorable", "Loving", "Benevolent",  "Virtuous", "Couragous" });
 
             Sex.desc = "This is what your character was born as when it comees to biological sex. This can change what items will work for you. ie) Armors";
             Gender.desc = "This dictates what pronoun is used in the game and what gender you identify as.";
@@ -117,7 +136,6 @@ namespace ThatGame
             Mentality.desc = "How you see others and the world around you. Different mentalities will effect the options available to you.";
             Vice.desc = "This is a singular problem or trouble you may have that holds you back. Mostly provided for interesting play";
             Virtue.desc = "This is a singular good thing about you that helps you only slighly in a few ways. Mostly provided for interesting play";
-
 
             result.Add(Sex);
             result.Add(Gender);

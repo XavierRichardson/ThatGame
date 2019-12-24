@@ -227,7 +227,7 @@ namespace ThatGame
             return result;
         }
 
-        private string divider(int lineWidth) {
+        public string divider(int lineWidth) {
             string result = "";
 
             for (int i = 0; i < lineWidth; i++) {
