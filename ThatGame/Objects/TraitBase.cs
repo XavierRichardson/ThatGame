@@ -10,5 +10,7 @@ namespace ThatGame.Objects
         public string desc { get; set; }
         public string[] skillMods { get; set; }
         public string[] statMods { get; set; }
+
+        public string misc { get; set; }
     }
 }
